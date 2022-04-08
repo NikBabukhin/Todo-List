@@ -1,6 +1,6 @@
-import style from './TodoList.module.css'
+import style from './ListOfTasks.module.css'
 
-export const TodoList=(props:any)=> {
+export const ListOfTasks=(props:any)=> {
     return (
         <div className={style.list__wrapper}>
             <h3>Title</h3>
