@@ -91,7 +91,7 @@ function App() {
 
     //FilteredTasks
     const setTodoForRender = () => {
-        let todoForRender = todoListState.map(todo => {
+        return todoListState.map(todo => {
             let tasksForRender = tasksListState[todo.id]
             if (todo.filter === 'active') {
                 tasksForRender = tasksListState[todo.id].filter(task => !task.isDone)
@@ -114,13 +114,12 @@ function App() {
                 </div>
             )
         });
-        return todoForRender
     }
+
 
     //Main return
     return (
         <div className={style.App}>
-
             <div className={style.wrapper__list__main}>
                 <ListOfTodo
                     todoState={todoListState}
