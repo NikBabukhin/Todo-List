@@ -4,13 +4,13 @@ import {v1} from "uuid";
 import {ListOfTasks} from "./Components/ListOfTasks/ListOfTasks";
 import {ListOfTodo} from "./Components/ListOfTodo/ListOfTodo";
 
-type FilterType = 'all' | 'active' | 'completed';
-type TodoListType = {
+export type FilterType = 'all' | 'active' | 'completed';
+export type TodoListType = {
     id: string,
     title: string,
     filter: FilterType,
 }
-type TasksItemType = {
+export type TasksItemType = {
     id: string,
     title: string,
     isDone: boolean,
@@ -90,17 +90,34 @@ function App() {
     };
 
     //FilteredTasks
-    const setTasksForRender = () => {
+    const setTodoForRender = () => {
         let todoForRender = todoListState.map(todo => {
+            let tasksForRender = tasksListState[todo.id]
+            if (todo.filter === 'active') {
+                tasksForRender = tasksListState[todo.id].filter(task => !task.isDone)
+            }
+            if (todo.filter === 'completed') {
+                tasksForRender = tasksListState[todo.id].filter(task => task.isDone)
+            }
             return (
-                <div className={style.wrapper__list__main}>
-                    <ListOfTasks/>
+                <div key={todo.id} className={style.wrapper__list__main}>
+                    <ListOfTasks
+                        todoId={todo.id}
+                        todoTitle={todo.title}
+                        tasksState={tasksForRender}
+                        addNewTask={addNewTask}
+                        changeFilterTodo={changeFilterTodo}
+                        changeStatusTask={changeStatusTask}
+                        changeTaskName={changeTaskName}
+                        deleteTask={deleteTask}
+                    />
                 </div>
             )
         });
         return todoForRender
     }
 
+    //Main return
     return (
         <div className={style.App}>
 
@@ -112,7 +129,7 @@ function App() {
                     deleteTodo={deleteTodo}
                 />
             </div>
-            {setTasksForRender()}
+            {setTodoForRender()}
         </div>
     );
 }

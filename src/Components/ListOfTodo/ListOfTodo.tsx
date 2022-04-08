@@ -1,10 +1,20 @@
-export const ListOfTodo=(props:any)=> {
+import {TodoListType} from "../../App";
+import React from "react";
+
+type ListOfTodoPropsType = {
+    todoState: Array<TodoListType>,
+    addNewTodoList: (idTodo: string, newTitle: string) => void,
+    changeTitleTodo: (idTodo: string, newTitle: string) => void,
+    deleteTodo: (idTodo: string) => void,
+}
+
+export const ListOfTodo: React.FC<ListOfTodoPropsType> = (props) => {
     return (
         <div>
-            <h3>Title</h3>
+            <h3>Hello, your todo list is here:</h3>
             <div>
                 <ul>
-                    <li></li>
+                    {props.todoState.map(todo=> <li key={todo.id}>{todo.title}</li>)}
                 </ul>
             </div>
         </div>
