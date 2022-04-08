@@ -44,8 +44,10 @@ function App() {
     });
 
     //Functions ListOfTasks
-    const addNewTodoList = (idTodo: string, newTitle: string) => {
-        setTodoListState([...todoListState, {id: idTodo, title: newTitle, filter: 'all'}])
+    const addNewTodoList = (newTitle: string) => {
+        const newTodo:TodoListType = {id: v1(), title: newTitle, filter: 'all'}
+        setTodoListState([...todoListState, newTodo])
+        setTasksListState({...tasksListState, [newTodo.id]:[]})
     };
     const changeFilterTodo = (idTodo: string, newFilter: FilterType) => {
         setTodoListState(todoListState.map(el => el.id === idTodo ? {...el, filter: newFilter} : el))
@@ -107,9 +109,11 @@ function App() {
                         tasksState={tasksForRender}
                         addNewTask={addNewTask}
                         changeFilterTodo={changeFilterTodo}
+                        changeTitleTodo={changeTitleTodo}
                         changeStatusTask={changeStatusTask}
                         changeTaskName={changeTaskName}
                         deleteTask={deleteTask}
+                        deleteTodo={deleteTodo}
                     />
                 </div>
             )

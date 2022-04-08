@@ -7,6 +7,7 @@ type TaskListItemPropsType = {
     taskId: string,
     title: string,
     taskStatus: boolean,
+    changeTaskName: (taskId:string, newTitle:string)=>void,
     changeStatus: (taskId: string) => void,
     deleteTask: (taskId: string) => void,
 }
@@ -19,6 +20,9 @@ export const TaskListItem: React.FC<TaskListItemPropsType> = (props) => {
     const deleteTask = () => {
         props.deleteTask(props.taskId)
     }
+    const changeTaskName=(newTitle:string)=> {
+        props.changeTaskName(props.taskId, newTitle)
+    }
 
     return (
         <li className={style.list__wrapper}>
@@ -27,7 +31,10 @@ export const TaskListItem: React.FC<TaskListItemPropsType> = (props) => {
                 checked={props.taskStatus}
                 onChange={changeStatus}
             />
-            <EditableSpan title={props.title}/>
+            <EditableSpan
+                title={props.title}
+                changeTitle={changeTaskName}
+            />
             <SuperButton buttonName={'x'} onClick={deleteTask}/>
         </li>
     )

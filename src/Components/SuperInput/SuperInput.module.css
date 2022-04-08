@@ -1,0 +1,15 @@
+.wrapper {
+    position: relative;
+}
+.error,
+.error:focus {
+    border: 1px red solid;
+}
+
+.span {
+    position: absolute;
+    color: red;
+    top: -50px;
+    left: -50px;
+}
+
